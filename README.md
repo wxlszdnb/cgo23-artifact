@@ -31,7 +31,7 @@ git clone https://github.com/rutgers-apl/cgo23-artifact.git
 ```
 
 Second, download the oracle files for the 6 elementary functions at
-https://go.rutgers.edu/m6ex2hnc[https://go.rutgers.edu/m6ex2hnc] using
+[https://go.rutgers.edu/m6ex2hnc] using
 the browser and save them to a directory. Let us call the directory:
 ORACLE. We will use these oracle files to test the correctness of the
 24 functions. One can use the MPFR library to individually test the
@@ -73,7 +73,9 @@ cd ..
 
 Fourth, you need to download Soplex-4.0.1 to run the polynomial
 generator. Download Soplex-4.0.1 at
-https://soplex.zib.de/[https://soplex.zib.de/].  Untar soplex-4.0.1 as
+[https://soplex.zib.de/[https://soplex.zib.de/].
+
+Untar soplex-4.0.1 as
 follows:
 
 ```
@@ -218,7 +220,7 @@ execute the following script:
 python SpeedupOverCRLIBM.py
 ```
 
-### Generating Polynomials with the RLIBM-Estrin-FMA method
+## Generating Polynomials with the RLIBM-Estrin-FMA method
 
 We illustrate the process of generating polynomials by incorporating
 the Estrin's method with FMA operations within the RLIBM polynomial
