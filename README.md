@@ -1,5 +1,4 @@
-# cgo23-artifact for the RLIBM Approach with Estrin's method and FMAs
-  for Polynomial Evaluation
+# CGO23-artifact for the RLIBM Approach with Estrin's method and FMAs for Polynomial Evaluation
 
 This library provides correctly rounded functions and the polynomial
 generator for them using the RLIBM method. The artifact includes: (1)
@@ -12,7 +11,7 @@ improvements over RLIBM and CRLIBM, and (4) polynomial generator for
 generating the polynomials using the Estrin's method with fused
 multiply-add operations.
 
-##Requirements
+# Requirements
 
 To replicate our experiments, we need a Linux machine with gcc
 compiler on x86-64 machine. To accurately reproduce our performance
@@ -22,7 +21,7 @@ recommended to have a machine with at least 16 GB of RAM. We need
 about 50 GB of storage if all the auxiliary files are unpacked.
 
 
-##Installation
+# Installation
 
 There are four main things to download the artifact. First, download
 the sources from the github repository as follows:
@@ -89,9 +88,9 @@ cd ..
 
 Now, we are ready to replicate the results.
 
-##Reproducing Results
+# Reproducing Results
 
-###Correctness test
+## Correctness test
 
 You can test the correctness of all the functions generated from our
 libraries using the correctness test infrastructure as follows:
@@ -147,7 +146,7 @@ It can take up to 10 minutes for testing each implementation as
 described above.  Similarly you can test out the other functions.
 
 
-###Performance
+## Performance
 
 We provide an automated script to test the performance of the
 RLIBM-Knuth, RLIBM-Estrin, and RLIBM-ESTRIN-FMA with respect to the
