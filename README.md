@@ -54,7 +54,7 @@ cd ..
 
 Third, download the interval files for the 6 functions for the
 polynomial generator at
-https://rutgers.box.com/s/aeaclmvnez8z0rjjsvcspoflslcu1nof[https://rutgers.box.com/s/aeaclmvnez8z0rjjsvcspoflslcu1nof]. These
+[https://rutgers.box.com/s/aeaclmvnez8z0rjjsvcspoflslcu1nof]. These
 can be generated using the RLIBM-ALL infrastructure. However, it would
 take a long time. Hence, we provide these interval files. Let us call
 the directory with these interval files: INTERVALS. Use the gunzip
