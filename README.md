@@ -72,8 +72,7 @@ cd ..
 
 
 Fourth, you need to download Soplex-4.0.1 to run the polynomial
-generator. Download Soplex-4.0.1 at
-[https://soplex.zib.de/[https://soplex.zib.de/].
+generator. Download Soplex-4.0.1 at [https://soplex.zib.de/].
 
 Untar soplex-4.0.1 as
 follows:
