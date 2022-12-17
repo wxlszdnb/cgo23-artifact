@@ -218,6 +218,7 @@ execute the following script:
 ```
 python SpeedupOverCRLIBM.py
 ```
+Note the above script requires python2
 
 ## Generating Polynomials with the RLIBM-Estrin-FMA method
 
