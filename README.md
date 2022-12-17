@@ -166,7 +166,7 @@ reported in the paper, it is necessary to run the script on machine
 with hyper-threading and turbo-boost disabled. It is advised to not
 execute other programs simultaneously with the script.
 
-After the script completes, you can run the analysis script that
+After the script completes, you can run the analysis script, which needs python2, that
 prints out the speedup with various configurations as follows:
 
 ```
@@ -218,7 +218,6 @@ execute the following script:
 ```
 python SpeedupOverCRLIBM.py
 ```
-Note the above script requires python2
 
 ## Generating Polynomials with the RLIBM-Estrin-FMA method
 
