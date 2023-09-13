@@ -253,19 +253,19 @@ rlibm_generate_polynomial(sample_data *sintervals, size_t ssize,
         printf("Trying to generate a polynomial  with %d terms \n", i + 1);
 
         int count = 0;
-        clock_t begin, end;
-        double duration;
+        clock_t func_begin, func_end;
+        double func_duration;
         while (count < max_tries) {
-            begin = clock();
+            func_begin = clock();
             polynomial *p = rlibm_solve_with_soplex(sintervals, ssize, power, i + 1);
-            end = clock();
-            duration = double(end - begin) / CLOCKS_PER_SEC;
-            printf(" rlibm_solve_with_soplex runs %f seconds\n", duration);
-            begin = clock();
+            func_end = clock();
+            func_duration = double(func_end - func_begin) / CLOCKS_PER_SEC;
+            printf(" rlibm_solve_with_soplex() runs %f seconds\n", func_duration);
+            func_begin = clock();
             auto tmp = rlibm_validate_and_fix_intervals(sintervals, ssize, p);
-            end = clock();
-            duration = double(end - begin) / CLOCKS_PER_SEC;
-            printf(" rlibm_validate_and_fix_intervals runs %f seconds\n", duration);
+            func_end = clock();
+            func_duration = double(func_end - func_begin) / CLOCKS_PER_SEC;
+            printf(" rlibm_validate_and_fix_intervals() runs %f seconds\n", func_duration);
             if (p && tmp) {
                 *prev_successful_degree = i;
                 return p;
