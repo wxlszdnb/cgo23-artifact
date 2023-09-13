@@ -261,14 +261,17 @@ rlibm_generate_polynomial(sample_data *sintervals, size_t ssize,
             func_end = clock();
             func_duration = double(func_end - func_begin) / CLOCKS_PER_SEC;
             printf(" rlibm_solve_with_soplex() runs %f seconds\n", func_duration);
-            func_begin = clock();
-            auto tmp = rlibm_validate_and_fix_intervals(sintervals, ssize, p);
-            func_end = clock();
-            func_duration = double(func_end - func_begin) / CLOCKS_PER_SEC;
-            printf(" rlibm_validate_and_fix_intervals() runs %f seconds\n", func_duration);
-            if (p && tmp) {
-                *prev_successful_degree = i;
-                return p;
+            if (p) {
+                func_begin = clock();
+                auto tmp=rlibm_validate_and_fix_intervals(sintervals, ssize, p);
+                func_end = clock();
+                func_duration = double(func_end - func_begin) / CLOCKS_PER_SEC;
+                printf(" rlibm_validate_and_fix_intervals() runs %f seconds\n", func_duration);
+                if(tmp){
+                    *prev_successful_degree = i;
+                    return p;
+                }
+
             }
             if (p != nullptr) {
                 free(p);
