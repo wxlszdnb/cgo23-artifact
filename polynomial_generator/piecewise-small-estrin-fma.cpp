@@ -529,10 +529,10 @@ int main(int argc, char **argv) {
         polynomial *p = nullptr;
         size_t total_iterations = 0;
 
-        clock_t itr_begin, itr_end;
-        double itr_duration;
-        itr_begin=clock();
         do {
+            clock_t itr_begin, itr_end;
+            double itr_duration;
+            itr_begin=clock();
             if (p != nullptr) free(p);
 
             n_violated_indices = 0;
@@ -604,9 +604,6 @@ int main(int argc, char **argv) {
                            total_iterations);
                     prev_successful_degree = 0;
                     rlibm_regenerate_random_values_and_reset_weights(intervals, nentries);
-                    itr_end=clock();
-                    itr_duration=(double )(itr_end-itr_begin)/CLOCKS_PER_SEC;
-                    printf("iteration duration: %f seconds\n",itr_duration);
                     if (p != nullptr) {
                         free(p);
                         p = nullptr;
@@ -617,6 +614,9 @@ int main(int argc, char **argv) {
                 matched_violated_indices = 0;
                 prev_violated_indices = n_violated_indices;
             }
+            itr_end=clock();
+            itr_duration=(double )(itr_end-itr_begin)/CLOCKS_PER_SEC;
+            printf("iteration duration: %f seconds\n",itr_duration);
         } while (n_violated_indices > 0 || !p);
 
         if (p) {
