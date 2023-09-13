@@ -262,7 +262,7 @@ rlibm_generate_polynomial(sample_data *sintervals, size_t ssize,
             auto diff=func_end - func_begin;
             func_duration = double(diff) / CLOCKS_PER_SEC;
             soplex_sum+=diff;
-            printf(" rlibm_solve_with_soplex() runs %f seconds\n", func_duration);
+            printf("Accumulate time of rlibm_solve_with_soplex() runs %f seconds\n", (double )soplex_sum/CLOCKS_PER_SEC);
             if (p) {
                 func_begin = clock();
                 auto tmp=rlibm_validate_and_fix_intervals(sintervals, ssize, p);
@@ -270,7 +270,7 @@ rlibm_generate_polynomial(sample_data *sintervals, size_t ssize,
                 auto diff2=func_end - func_begin;
                 validate_sum+=diff2;
                 func_duration = double(diff2) / CLOCKS_PER_SEC;
-                printf(" rlibm_validate_and_fix_intervals() runs %f seconds\n", func_duration);
+                printf("Accumulate time of rlibm_validate_and_fix_intervals() runs %f seconds\n", (double )validate_sum/CLOCKS_PER_SEC);
                 if(tmp){
                     *prev_successful_degree = i;
                     return p;
@@ -282,8 +282,8 @@ rlibm_generate_polynomial(sample_data *sintervals, size_t ssize,
             }
             count++;
         }
-        printf("The sum of rlibm_solve_with_soplex() runs %f seconds\n", (double )soplex_sum/CLOCKS_PER_SEC);
-        printf("The sum of rlibm_validate_and_fix_intervals() runs %f seconds\n", (double )validate_sum/CLOCKS_PER_SEC);
+//        printf("The sum of rlibm_solve_with_soplex() runs %f seconds\n", (double )soplex_sum/CLOCKS_PER_SEC);
+//        printf("The sum of rlibm_validate_and_fix_intervals() runs %f seconds\n", (double )validate_sum/CLOCKS_PER_SEC);
     }
     return nullptr;
 
