@@ -7,11 +7,19 @@ polynomial *solve_with_py(sample_data *sintervals,
 
     // Initialize the Python interpreter
     Py_Initialize();
+    if (!Py_IsInitialized()) {
+        printf("python init fail\n");
+        exit(1);
+    }
 
     PyRun_SimpleString("import sys");
     PyRun_SimpleString("sys.path.append('./script')");
     // Import the Python module
     PyObject* pModule = PyImport_ImportModule("solver");
+    if (pModule == NULL) {
+        printf("module not found\n");
+        exit(1);
+    }
     // Get a reference to the Python function
     PyObject* pFunc = PyObject_GetAttrString(pModule, "solve_polynomial");
 
