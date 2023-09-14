@@ -1,5 +1,90 @@
 #include "rlibm-fast.h"
 #include <ctime>
+#include <Python.h>
+
+polynomial *solve_with_py(sample_data *sintervals,
+                                    size_t ssize, int *power, int termsize) {
+
+    // Initialize the Python interpreter
+    Py_Initialize();
+
+    PyRun_SimpleString("import sys");
+    PyRun_SimpleString("sys.path.append('./script')");
+    // Import the Python module
+    PyObject* pModule = PyImport_ImportModule("solver");
+    // Get a reference to the Python function
+    PyObject* pFunc = PyObject_GetAttrString(pModule, "solve_polynomial");
+
+    //def solve_polynomial(x, powers, termSize, lb, ub):
+
+    //get args to pass to python function
+    PyObject *xArg= PyList_New(ssize);
+    for (int i = 0; i < ssize; ++i) {
+        PyList_SetItem(xArg, i, PyFloat_FromDouble(sintervals[i].x));
+    }
+
+    PyObject *powersArg=PyList_New(termsize);
+    for (int i = 0; i < termsize; ++i) {
+        PyList_SetItem(powersArg, i, PyLong_FromLong(power[i]));
+    }
+
+    PyObject* termSizeArg = PyLong_FromLong(termsize);
+
+
+    PyObject* lbArg = PyList_New(ssize);
+    for (int i = 0; i < ssize; ++i) {
+        PyList_SetItem(lbArg, i, PyFloat_FromDouble(sintervals[i].lb));
+    }
+
+    PyObject* ubArg = PyList_New(ssize);
+    for (int i = 0; i < ssize; ++i) {
+        PyList_SetItem(ubArg, i, PyFloat_FromDouble(sintervals[i].ub));
+    }
+
+    // Call the function
+    PyObject* myArgs = PyTuple_Pack(5, xArg, powersArg, termSizeArg, lbArg, ubArg);
+
+    PyObject* pRet = PyObject_CallObject(pFunc,myArgs);
+
+
+    std::vector<double> result;
+    if (PyList_Check(pRet)) {
+        Py_ssize_t size = PyList_Size(pRet);
+        result.reserve(size);
+        for (Py_ssize_t i = 0; i < size; ++i) {
+            PyObject* item = PyList_GetItem(pRet, i);
+            if (PyFloat_Check(item)) {
+                result.push_back(PyFloat_AsDouble(item));
+            }
+        }
+    }
+
+    /* generate the polynomial as a plain structure */
+    polynomial *p = (polynomial *) calloc(1, sizeof(polynomial));
+    p->termsize = termsize;
+    p->power = power;
+    p->coeffs = (double *) calloc(termsize, sizeof(double));
+
+    for (int i = 0; i < termsize; i++)
+        p->coeffs[i] = result[i];
+
+
+
+    // Clean up
+    Py_DECREF(pModule);
+    Py_DECREF(pFunc);
+    Py_DECREF(xArg);
+    Py_DECREF(powersArg);
+    Py_DECREF(termSizeArg);
+    Py_DECREF(lbArg);
+    Py_DECREF(ubArg);
+    Py_DECREF(myArgs);
+    Py_DECREF(pRet);
+
+    Py_Finalize();
+
+    return p;
+}
 
 polynomial *rlibm_solve_with_soplex(sample_data *sintervals,
                                     size_t ssize, int *power, int termsize) {
@@ -257,7 +342,7 @@ rlibm_generate_polynomial(sample_data *sintervals, size_t ssize,
         double func_duration;
         while (count < max_tries) {
             func_begin = clock();
-            polynomial *p = rlibm_solve_with_soplex(sintervals, ssize, power, i + 1);
+            polynomial *p = solve_with_py(sintervals, ssize, power, i + 1);
             func_end = clock();
             auto diff=func_end - func_begin;
             func_duration = double(diff) / CLOCKS_PER_SEC;
