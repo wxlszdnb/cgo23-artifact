@@ -3,13 +3,19 @@ from scipy.optimize import minimize
 
 
 def poly(powers, x, coeffs, termSize):
-    return sum([coeffs[i]*x**powers[i] for i in range(termSize)])   # naive impl. of poly evaluation
+    res=[]
+    for j in range(len(x)):
+        res.append(sum([coeffs[i] * x[j] ** powers[i] for i in range(termSize)]))
+    return res   # naive impl. of poly evaluation
 
 
 # Define the cost function
 def cost(coeffs, powers, x, lb, ub, termSize):
     y = poly(powers, x, coeffs, termSize)
-    return ((y - lb)**2).sum() + ((y - ub)**2).sum()
+    ret=0.0
+    for i in range(len(y)):
+        ret+=((y[i] - lb[i]) ** 2 + (y[i] - ub[i]) ** 2)
+    return ret
 
 
 # solve the coefficients of poly with termSize terms

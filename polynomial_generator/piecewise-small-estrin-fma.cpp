@@ -16,7 +16,7 @@ polynomial *solve_with_py(sample_data *sintervals,
     PyRun_SimpleString("sys.path.append('./script')");
     // Import the Python module
     PyObject* pModule = PyImport_ImportModule("solver");
-    if (pModule == NULL) {
+    if (pModule == nullptr) {
         printf("module not found\n");
         exit(1);
     }
